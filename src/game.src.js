@@ -880,7 +880,7 @@ class Title extends Phaser.Scene{
   this.add.image(-300,214,'h3').setOrigin(0).setAlpha(.45);
   // marquesina
   bev(g,0,0,W,28,0x2c1233,2);
-  T(W/2,6,'PLATANUS HACK 26   ·   ARCADE   ·   BOGOTA',CY,13,.5);
+  T(W/2,6,'CRAFTER STATION  ·  PLATANUS HACK 26  ·  BOGOTA',CY,13,.5);
   // logo
   const L=(y,t,c,sz)=>this.add.text(W/2,y,t,{fontFamily:'monospace',fontSize:sz+'px',
    color:c,stroke:'#14101c',strokeThickness:11}).setOrigin(.5,0);

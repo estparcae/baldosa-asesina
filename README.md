@@ -144,6 +144,12 @@ baldosas sueltas reales de los andenes bogotanos. Los sprites de personajes se d
 desde strings de píxeles, que es la única forma de meter caras y pliegues de ruana en
 tan pocos bytes.
 
+## Miniatura
+
+`miniatura.png` es arte promocional de **Crafter Station** para la portada del envío y el
+preview del link. **El juego nunca la carga** — es un archivo suelto del repo, así que la
+regla de cero assets sigue intacta: `game.min.js` no referencia ninguna imagen.
+
 ## Publicarlo
 
 Es estático: sirve cualquier host de archivos. Con GitHub Pages:
