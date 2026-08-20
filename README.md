@@ -162,3 +162,19 @@ gh repo create baldosa-asesina --public --source=. --push
 
 Para el voto popular, **itch.io** también sirve bien: subís un zip con `index.html`,
 `game.min.js` y `phaser.min.js` y queda jugable desde el celular.
+
+## Contribuir
+
+Los PRs son bienvenidos. Una sola regla: **`game.min.js` es generado, no lo
+edites a mano** — la fuente es `src/game.src.js` y se compila con `./build.sh`.
+El CI lo verifica byte a byte en cada PR, junto con el presupuesto de 50kb y la
+auditoría de balance. Los detalles están en [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Licencia
+
+MIT — ver [LICENSE](LICENSE). El juego, la fuente y `miniatura.png` son obra
+original de Crafter Station.
+
+`phaser.min.js` es Phaser 3.90.0, redistribuido bajo su propia licencia MIT
+(© 2024 Richard Davey, Phaser Studio Inc.). El aviso completo está en
+[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).

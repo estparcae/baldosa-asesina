@@ -1,0 +1,44 @@
+name: verify-build
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: game.min.js coincide con src/game.src.js
+        run: |
+          cp game.min.js /tmp/commiteado.js
+          ./build.sh
+          if ! cmp -s game.min.js /tmp/commiteado.js; then
+            echo "::error::game.min.js no corresponde a src/game.src.js."
+            echo "commiteado: $(wc -c < /tmp/commiteado.js) bytes"
+            echo "recompilado: $(wc -c < game.min.js) bytes"
+            echo "Editá src/game.src.js, corré ./build.sh y commiteá el resultado."
+            exit 1
+          fi
+          echo "OK: el minificado reproduce la fuente byte a byte"
+
+      - name: presupuesto de 50kb
+        run: |
+          T=$(( $(wc -c < game.min.js) + $(wc -c < index.html) ))
+          echo "game.min.js + index.html = $T bytes (limite 50000)"
+          if [ "$T" -gt 50000 ]; then
+            echo "::error::el presupuesto de 50kb se paso por $((T - 50000)) bytes"
+            exit 1
+          fi
+
+      - name: balance jugable (ruta seca garantizada)
+        run: node tools/audit.js
