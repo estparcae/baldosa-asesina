@@ -3,8 +3,8 @@ const W=960,H=540,TS=48,ROWS=4,SY=252,CURB=SY+ROWS*TS,FILA=7.5; // el TM es grat
 const FS=(g,c,a)=>g.fillStyle(c,a===undefined?1:a),FR=(g,x,y,w,h)=>g.fillRect(x,y,w,h),
  FC=(g,x,y,r)=>g.fillCircle(x,y,r),FE=(g,x,y,w,h)=>g.fillEllipse(x,y,w,h),
  LS=(g,w,c,a)=>g.lineStyle(w,c,a===undefined?1:a);
-const rgb=n=>Phaser.Display.Color.IntegerToColor(n);
-const mix=(a,b,t)=>Phaser.Display.Color.Interpolate.ColorWithColor(rgb(a),rgb(b),100,t*100).color;
+const mix=(a,b,t)=>((((a>>16&255)+((b>>16&255)-(a>>16&255))*t)|0)<<16)|
+ ((((a>>8&255)+((b>>8&255)-(a>>8&255))*t)|0)<<8)|(((a&255)+((b&255)-(a&255))*t)|0);
 
 // paletas por nivel: misma geometria, otro barrio
 const PAL=[
@@ -767,8 +767,8 @@ class Play extends Phaser.Scene{
 
  update(tm,dt){const d=Math.min(dt,50)/1000;
   if(this.mode==='bus')return this.busRide(d);
-  if(this.colw)this.colw.forEach((w,i)=>w.setFillStyle(
-   Phaser.Display.Color.HSVToRGB((this.tsec*.28+i*.042)%1,.85,1).color));
+  if(this.colw){const NE=[0xff2d8a,0xffd24a,0x2fd86a,0x2f8fd8,0x9a4aff,0xff6a3d];
+   this.colw.forEach((w,i)=>w.setFillStyle(NE[((this.tsec*3+i*.7)|0)%6]))}
   if(this.mode!=='walk')return;
   this.tsec+=d;this.dwell+=d;this.cool-=dt;this.inv-=dt;
   if(this.dash>0)this.dash-=dt;
